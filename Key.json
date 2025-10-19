@@ -1,34 +1,35 @@
 {
   "dialog_config": {
-    "title": "DPMods Login",
-    "subtitle": "Welcome to the Pro Version! Please log in below or copy your ID for activation.",
-    "background_color_hex": "#2c3e50",
-    "button_login_text": "Sign In",
-    "button_contact_text": "Contact Support",
-    "admin_contact_url": "https://t.me/your_admin_username"
+    "title": "DPMods Premium Login",
+    "subtitle": "Enter your credentials or contact the admin for a subscription. Your ID is:",
+    "background_color_hex": "#EEEEEE",
+    "profile_image_url": "https://i.imgur.com/example_image.png",
+    "button_login_text": "Login",
+    "button_contact_text": "Admin Contact",
+    "admin_contact_url": "https://t.me/dp_mods"
   },
   "status_config": {
     "maintenance_enabled": false,
-    "maintenance_message": "The server is currently undergoing scheduled maintenance. Please check back in 30 minutes.",
+    "maintenance_message": "The server is currently undergoing scheduled maintenance. Please check back soon!",
     "force_show_enabled": false,
     "remote_check_interval_ms": 30000,
-    "dialog_show_interval_ms": 10800000,
-    "auth_success_toast": "Login successful! Enjoy the Pro features.",
-    "auth_expired_toast": "Your subscription has expired. Please contact the admin to renew.",
-    "auth_invalid_toast": "Invalid credentials or device ID. Check your details and try again."
+    "dialog_show_interval_ms": 7200000,
+    "auth_success_toast": "Login successful! Welcome to the premium features.",
+    "auth_expired_toast": "Subscription expired. Please renew it from admin.",
+    "auth_invalid_toast": "Invalid Username, Password, or Device ID."
   },
   "users": [
     {
       "username": "user123",
-      "password": "securepassword",
-      "device_id": "a97b2d5d-c6f3-4e8c-a1b2-3e4f5a6b7c8d",
+      "password": "pass456",
+      "device_id": "8e3d64c8-3c99-44d5-947b-example00001",
       "expiry_date_utc": "2025-12-31"
     },
     {
-      "username": "clientXYZ",
-      "password": "anotherpassword",
-      "device_id": "90a1b2c3-d4e5-f6a7-8b9c-0d1e2f3a4b5c",
-      "expiry_date_utc": "2024-11-15"
+      "username": "test_user",
+      "password": "test_pass",
+      "device_id": "8e3d64c8-3c99-44d5-947b-example00002",
+      "expiry_date_utc": "2024-11-01"
     }
   ]
 }
