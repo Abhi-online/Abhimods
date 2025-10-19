@@ -2,7 +2,7 @@
   "dialog_config": {
     "title": "DPMods Premium Login",
     "subtitle": "Enter your credentials or contact the admin for a subscription. Your ID is:",
-    "background_color_hex": "#EEEEEE",
+    "background_color_hex": "#FFFFFF",
     "profile_image_url": "https://i.imgur.com/example_image.png",
     "button_login_text": "Login",
     "button_contact_text": "Admin Contact",
