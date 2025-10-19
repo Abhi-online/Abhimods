@@ -1,6 +1,6 @@
 {
   "dialog_config": {
-    "title": "PixelLab R Pro Login",
+    "title": "DPMods Login",
     "subtitle": "Welcome to the Pro Version! Please log in below or copy your ID for activation.",
     "background_color_hex": "#2c3e50",
     "button_login_text": "Sign In",
