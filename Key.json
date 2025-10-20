@@ -21,12 +21,6 @@
   "users": [
     {
       "username": "dpmods",
-      "password": "Lol123",
-      "device_id": "Lolsb",
-      "expiry_date_utc": "2025-11-19"
-    },
-    {
-      "username": "dpmods",
       "password": "dpmods",
       "device_id": "a76a0ad2-5354-4167-a416-efe0914d33f2",
       "expiry_date_utc": "2025-11-22"
