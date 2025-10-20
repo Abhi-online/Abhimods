@@ -26,6 +26,12 @@
       "expiry_date_utc": "2025-11-19"
     },
     {
+      "username": "dpmods",
+      "password": "dpmods",
+      "device_id": "a76a0ad2-5354-4167-a416-efe0914d33f2",
+      "expiry_date_utc": "2025-11-22"
+    },
+    {
       "username": "test_user",
       "password": "test_pass",
       "device_id": "8e3d64c8-3c99-44d5-947b-example00002",
