@@ -30,6 +30,12 @@
       "password": "pass456",
       "device_id": "8e3d64c8-3c99-44d5-947b-example00001",
       "expiry_date_utc": "2025-12-31"
+    },
+    {
+      "username": "dpmods",
+      "password": "dpmods",
+      "device_id": "6459f730-cb42-4985-b603-a9e90ecf9f8a",
+      "expiry_date_utc": "2025-10-21"
     }
   ]
 }
