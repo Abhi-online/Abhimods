@@ -15,6 +15,7 @@
             --text-color: #FFFFFF;
             --text-secondary: #B3B3B3;
             --danger-color: #FF4D4D;
+            --expired-color: #FF9800; /* Orange for Expired */
         }
 
         body {
@@ -46,93 +47,32 @@
             margin: 0 auto;
         }
 
-        /* --- Input and Form Styles --- */
-        .form-group {
+        /* --- User List & Status Styling --- */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
             margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        input[type="text"],
-        input[type="url"],
-        input[type="date"],
-        input[type="number"],
-        input[type="color"],
-        input[type="password"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #444;
-            border-radius: 6px;
-            background-color: #333;
-            color: var(--text-color);
-            box-sizing: border-box;
+            overflow-x: auto;
+            padding-bottom: 5px;
         }
         
-        /* Specific style for color input */
-        input[type="color"] {
-            height: 40px;
-            padding: 0;
-            width: 50px;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
-        /* --- Toggle Switch Styling --- */
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 48px;
-            height: 24px;
-            vertical-align: middle;
-        }
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .slider {
-            position: absolute;
+        .filter-bar button {
+            background-color: #333;
+            color: var(--text-secondary);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
             cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        input:checked + .slider {
-            background-color: var(--primary-color);
-        }
-        input:checked + .slider:before {
-            transform: translateX(24px);
-        }
-        .toggle-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #333;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            transition: background-color 0.2s, color 0.2s;
         }
 
-        /* --- User List Styling --- */
+        .filter-bar button.active {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+        }
+
         .user-item {
             background-color: var(--secondary-color);
             padding: 15px;
@@ -142,6 +82,16 @@
             justify-content: space-between;
             align-items: center;
             transition: background-color 0.2s;
+            border-left: 5px solid transparent;
+        }
+
+        .user-item.expired {
+            background-color: #331f1f; /* Darker red tint */
+            border-left-color: var(--danger-color);
+        }
+        
+        .user-item.valid {
+            border-left-color: var(--primary-color);
         }
 
         .user-item-info {
@@ -153,11 +103,30 @@
             font-size: 1.1rem;
             color: var(--primary-color);
         }
+        
+        .user-item.expired .user-item-info strong {
+            color: var(--danger-color);
+        }
 
         .user-item-info span {
             color: var(--text-secondary);
             font-size: 0.9rem;
             display: block;
+        }
+        
+        .user-status-tag {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 15px;
+        }
+
+        .user-item.expired .user-status-tag {
+            background-color: var(--danger-color);
+            color: var(--text-color);
         }
 
         .user-actions {
@@ -165,169 +134,65 @@
             gap: 10px;
         }
 
-        .action-btn {
-            background: none;
+        /* --- Modal Styling for Date Shortcuts --- */
+        .date-shortcuts {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .date-shortcuts button {
+            background-color: #333;
+            color: var(--text-secondary);
             border: none;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
+            padding: 8px 10px;
+            border-radius: 6px;
             cursor: pointer;
-            padding: 5px;
-            border-radius: 50%;
-            transition: color 0.2s;
-        }
-
-        .action-btn:hover {
-            color: var(--text-color);
-        }
-
-        .delete-btn {
-            color: var(--danger-color);
-        }
-
-
-        /* --- Tab/Navigation Bar (Android/Minimal Style) --- */
-        nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background-color: var(--secondary-color);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-
-        .nav-item {
-            text-decoration: none;
-            color: var(--text-secondary);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.7rem;
-            transition: color 0.2s;
-            cursor: pointer;
-            padding: 5px 10px;
-        }
-
-        .nav-item i {
-            font-size: 1.5rem;
-            margin-bottom: 2px;
-        }
-
-        .nav-item.active {
-            color: var(--primary-color);
-        }
-
-        .add-user-btn {
-            background-color: var(--primary-color);
-            color: var(--background-color);
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transform: translateY(-15px); /* Lift the FAB button */
+            font-size: 0.9rem;
+            flex-shrink: 0;
             transition: background-color 0.2s;
         }
 
-        .add-user-btn:hover {
-            background-color: #1ed760;
-        }
-
-        /* --- Modal Styling (Reused) --- */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            background-color: var(--secondary-color);
-            padding: 30px;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 450px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            margin: 50px 0; /* space for scroll on mobile */
-        }
-
-        .modal h2 {
-            margin-top: 0;
-            color: var(--primary-color);
-        }
-
-        .modal button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: opacity 0.2s;
-        }
-
-        .modal button:hover {
-            opacity: 0.9;
-        }
-
-        .modal .btn-primary {
-            background-color: var(--primary-color);
-            color: var(--background-color);
-        }
-
-        .modal .btn-secondary {
+        .date-shortcuts button:hover {
             background-color: #444;
-            color: var(--text-color);
-            margin-right: 10px;
         }
 
-        /* --- Utility & Loading --- */
-        #loading {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            color: var(--primary-color);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5rem;
-            z-index: 3000;
-        }
 
-        .toast {
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: var(--text-color);
-            padding: 10px 20px;
-            border-radius: 20px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 4000;
+        /* Remaining styles (Inputs, Toggles, Nav, Modals) are kept from previous version */
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 0.9rem; color: var(--text-secondary); }
+        input[type="text"], input[type="url"], input[type="date"], input[type="number"], input[type="color"], input[type="password"], textarea {
+            width: 100%; padding: 10px; border: 1px solid #444; border-radius: 6px; background-color: #333; color: var(--text-color); box-sizing: border-box;
         }
-
-        .toast.show {
-            opacity: 1;
-        }
+        input[type="color"] { height: 40px; padding: 0; width: 50px; margin-right: 10px; vertical-align: middle; }
+        .toggle-switch { position: relative; display: inline-block; width: 48px; height: 24px; vertical-align: middle; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--primary-color); }
+        input:checked + .slider:before { transform: translateX(24px); }
+        .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #333; }
+        .action-btn { background: none; border: none; color: var(--text-secondary); font-size: 1.2rem; cursor: pointer; padding: 5px; border-radius: 50%; transition: color 0.2s; }
+        .action-btn:hover { color: var(--text-color); }
+        .delete-btn { color: var(--danger-color); }
+        nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background-color: var(--secondary-color); display: flex; justify-content: space-around; align-items: center; box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3); z-index: 1000; }
+        .nav-item { text-decoration: none; color: var(--text-secondary); display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; transition: color 0.2s; cursor: pointer; padding: 5px 10px; }
+        .nav-item i { font-size: 1.5rem; margin-bottom: 2px; }
+        .nav-item.active { color: var(--primary-color); }
+        .add-user-btn { background-color: var(--primary-color); color: var(--background-color); width: 56px; height: 56px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); cursor: pointer; transform: translateY(-15px); transition: background-color 0.2s; }
+        .add-user-btn:hover { background-color: #1ed760; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 2000; overflow-y: auto; }
+        .modal-content { background-color: var(--secondary-color); padding: 30px; border-radius: 12px; width: 90%; max-width: 450px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); margin: 50px 0; }
+        .modal h2 { margin-top: 0; color: var(--primary-color); }
+        .modal button { padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; font-weight: 700; transition: opacity 0.2s; }
+        .modal button:hover { opacity: 0.9; }
+        .modal .btn-primary { background-color: var(--primary-color); color: var(--background-color); }
+        .modal .btn-secondary { background-color: #444; color: var(--text-color); margin-right: 10px; }
+        #loading { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.9); color: var(--primary-color); display: none; justify-content: center; align-items: center; font-size: 1.5rem; z-index: 3000; }
+        .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background-color: rgba(0, 0, 0, 0.8); color: var(--text-color); padding: 10px 20px; border-radius: 20px; opacity: 0; transition: opacity 0.3s; z-index: 4000; }
+        .toast.show { opacity: 1; }
     </style>
 </head>
 <body>
@@ -339,6 +204,13 @@
     <div class="container">
         <div id="usersTab" class="tab-content">
             <h2>User Keys</h2>
+            
+            <div class="filter-bar" id="filterBar">
+                <button class="active" data-filter="all" onclick="setFilter('all', this)">All</button>
+                <button data-filter="valid" onclick="setFilter('valid', this)">Valid</button>
+                <button data-filter="expired" onclick="setFilter('expired', this)">Expired</button>
+            </div>
+
             <div id="userList">
                 </div>
         </div>
@@ -459,8 +331,16 @@
                 <label for="deviceIdInput">Device ID</label>
                 <input type="text" id="deviceIdInput" placeholder="e.g., 8e3d64c8-3c99-..." required>
             </div>
+            
+            <label>Expiry Date (UTC)</label>
+            <div class="date-shortcuts">
+                <button onclick="setExpiryShortcut(1)">+1 Day</button>
+                <button onclick="setExpiryShortcut(7)">+7 Days</button>
+                <button onclick="setExpiryShortcut(30)">+30 Days</button>
+                <button onclick="setExpiryShortcut(90)">+3 Months</button>
+                <button onclick="setExpiryShortcut(365)">+1 Year</button>
+            </div>
             <div class="form-group">
-                <label for="expiryDateInput">Expiry Date (UTC)</label>
                 <input type="date" id="expiryDateInput" required>
             </div>
 
@@ -492,12 +372,12 @@
     <script>
         // ====================================================================
         // CONFIGURATION (!!! SECURITY RISK - SEE WARNING ABOVE !!!)
-        // ** UPDATED PROJECT PATH HERE **
         // ====================================================================
-        const GITLAB_PROJECT_PATH = "DPModsYT/logindialog"; // Updated path
+        const GITLAB_PROJECT_PATH = "DPModsYT/logindialog";
         const GITLAB_FILE_PATH = "Key.json"; 
         const GITLAB_BRANCH = "main";
-        const PRIVATE_TOKEN = "glpat-hGozijY_XK-Y0uOFu8vk5286MQp1OmloNXZsCw.01.120j6pvbt";
+        // ** NEW PRIVATE TOKEN **
+        const PRIVATE_TOKEN = "glpat-hGozijY_XK-Y0uOFu8vk5286MQp1OmloNXZsCw.01.120j6pvbt"; 
         const ADMIN_PASSWORD = "dpmods";
 
         // URL-encode the path components
@@ -505,13 +385,10 @@
         const ENCODED_FILE_PATH = encodeURIComponent(GITLAB_FILE_PATH);
         const API_URL = `https://gitlab.com/api/v4/projects/${ENCODED_PROJECT_PATH}/repository/files/${ENCODED_FILE_PATH}`;
 
-        // Global variable to hold ALL data
-        let configData = {
-            dialog_config: {},
-            status_config: {},
-            users: []
-        };
+        // Global state
+        let configData = { dialog_config: {}, status_config: {}, users: [] };
         let currentEditingUserIndex = -1; // -1 for new user
+        let currentFilter = 'all';
 
         // Utility Functions
         const $ = id => document.getElementById(id);
@@ -541,22 +418,120 @@
                 $('usersTab').style.display = 'block';
                 $('navUsers').classList.add('active');
                 $('navUsers').style.color = 'var(--primary-color)';
+                renderUsers(); // Re-render when switching back to users tab
             } else if (tabName === 'settings') {
                 $('settingsTab').style.display = 'block';
                 $('navSettings').classList.add('active');
                 $('navSettings').style.color = 'var(--primary-color)';
-                // Load settings data into the form when the tab is shown
                 loadSettingsToForm();
             }
         }
         
-        // ====================================================================
-        // DATA BINDING (Form <-> configData)
-        // ====================================================================
+        /**
+         * Sets the current filter and re-renders the user list.
+         */
+        function setFilter(filter, button) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-bar button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+            renderUsers();
+        }
 
         /**
-         * Binds configData properties to the Settings form inputs.
+         * Checks if a key is expired.
+         * @param {string} dateString Expiry date in YYYY-MM-DD format.
+         * @returns {boolean} True if expired, false otherwise.
          */
+        function isExpired(dateString) {
+            const expiryDate = new Date(dateString);
+            const today = new Date();
+            // Set time to start of day for accurate date comparison
+            today.setHours(0, 0, 0, 0); 
+            // Add one day to expiry date because the subscription is typically valid *through* the expiry date.
+            expiryDate.setDate(expiryDate.getDate() + 1); 
+            return expiryDate < today;
+        }
+
+        /**
+         * Renders the users array into the UI list, applying sorting and filtering.
+         */
+        function renderUsers() {
+            const userList = $('userList');
+            userList.innerHTML = '';
+            
+            let filteredUsers = configData.users.map(user => ({
+                ...user,
+                is_expired: isExpired(user.expiry_date_utc)
+            }));
+            
+            // 1. Filter
+            if (currentFilter === 'valid') {
+                filteredUsers = filteredUsers.filter(user => !user.is_expired);
+            } else if (currentFilter === 'expired') {
+                filteredUsers = filteredUsers.filter(user => user.is_expired);
+            }
+
+            // 2. Sort (Expired first, then by username)
+            filteredUsers.sort((a, b) => {
+                // Expired keys come first
+                if (a.is_expired && !b.is_expired) return -1;
+                if (!a.is_expired && b.is_expired) return 1;
+                // Then sort by username
+                return a.username.localeCompare(b.username);
+            });
+
+
+            if (filteredUsers.length === 0) {
+                userList.innerHTML = `<p style="color: var(--text-secondary);">No users found matching the current filter: **${currentFilter.toUpperCase()}**.</p>`;
+                return;
+            }
+
+            filteredUsers.forEach((user, index) => {
+                const item = document.createElement('div');
+                const originalIndex = configData.users.findIndex(u => u.username === user.username && u.device_id === user.device_id);
+                
+                item.className = 'user-item' + (user.is_expired ? ' expired' : ' valid');
+
+                const statusTag = user.is_expired 
+                    ? `<span class="user-status-tag" style="background-color: var(--danger-color);">EXPIRED</span>`
+                    : `<span class="user-status-tag">VALID</span>`;
+
+                item.innerHTML = `
+                    <div class="user-item-info" style="display: flex; align-items: center;">
+                        ${statusTag}
+                        <div>
+                            <strong>${user.username}</strong>
+                            <span>Password: ${user.password} | Device ID: ${user.device_id.substring(0, 10)}...</span>
+                            <span>Expires: ${user.expiry_date_utc}</span>
+                        </div>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn edit-btn" onclick="showUserModal(${originalIndex})" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteUser(${originalIndex})" title="Delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `;
+                userList.appendChild(item);
+            });
+        }
+        
+        /**
+         * Sets the expiry date input field using a shortcut.
+         * @param {number} days Days to add to the current date.
+         */
+        function setExpiryShortcut(days) {
+            const dateInput = $('expiryDateInput');
+            const today = new Date();
+            today.setDate(today.getDate() + days);
+            dateInput.value = today.toISOString().split('T')[0];
+        }
+
+        // --- Data Binding & CRUD logic (omitted for brevity, assume unchanged except for renderUsers call) ---
         function loadSettingsToForm() {
             const dc = configData.dialog_config;
             const sc = configData.status_config;
@@ -582,9 +557,6 @@
             $('authInvalidToast').value = sc.auth_invalid_toast || '';
         }
 
-        /**
-         * Extracts data from the Settings form inputs back into configData.
-         */
         function extractSettingsFromForm() {
             const dc = {};
             const sc = {};
@@ -612,49 +584,6 @@
             configData.status_config = sc;
         }
 
-        // ====================================================================
-        // USER MANAGEMENT LOGIC
-        // ====================================================================
-
-        /**
-         * Renders the users array into the UI list.
-         */
-        function renderUsers() {
-            const userList = $('userList');
-            userList.innerHTML = '';
-
-            if (configData.users.length === 0) {
-                userList.innerHTML = `<p style="color: var(--text-secondary);">No users found. Click the '+' button to add one.</p>`;
-                return;
-            }
-
-            configData.users.sort((a, b) => a.username.localeCompare(b.username)).forEach((user, index) => {
-                const item = document.createElement('div');
-                item.className = 'user-item';
-
-                item.innerHTML = `
-                    <div class="user-item-info">
-                        <strong>${user.username}</strong>
-                        <span>Password: ${user.password} | Device ID: ${user.device_id.substring(0, 10)}...</span>
-                        <span>Expires: ${user.expiry_date_utc}</span>
-                    </div>
-                    <div class="user-actions">
-                        <button class="action-btn edit-btn" onclick="showUserModal(${index})" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="action-btn delete-btn" onclick="deleteUser(${index})" title="Delete">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </div>
-                `;
-                userList.appendChild(item);
-            });
-        }
-
-        /**
-         * Shows the modal for adding a new user or editing an existing one.
-         * @param {number | null} index The index of the user to edit, or null/undefined for a new user.
-         */
         function showUserModal(index) {
             const modalTitle = $('userModalTitle');
             const userModal = $('userModal');
@@ -673,17 +602,12 @@
                 $('usernameInput').value = '';
                 $('passwordInput').value = '';
                 $('deviceIdInput').value = '';
-                // Set default expiry date to a near future date
-                const today = new Date();
-                today.setDate(today.getDate() + 30); // 30 days default
-                $('expiryDateInput').value = today.toISOString().split('T')[0];
+                // Set default expiry date to 30 days from today
+                setExpiryShortcut(30);
             }
             userModal.style.display = 'flex';
         }
 
-        /**
-         * Handles the save action from the user modal.
-         */
         function handleUserSaveAction() {
             const username = $('usernameInput').value.trim();
             const password = $('passwordInput').value.trim();
@@ -698,50 +622,30 @@
             const newUser = { username, password, device_id, expiry_date_utc };
 
             if (currentEditingUserIndex !== -1) {
-                // Edit existing user
                 configData.users[currentEditingUserIndex] = newUser;
             } else {
-                // Add new user
                 configData.users.push(newUser);
             }
 
             renderUsers();
             $('userModal').style.display = 'none';
-            $('passwordModal').style.display = 'flex'; // Trigger password check before update
+            $('passwordModal').style.display = 'flex';
         }
 
-        /**
-         * Handles the delete action for a user.
-         * @param {number} index The index of the user to delete.
-         */
         function deleteUser(index) {
             if (confirm(`Are you sure you want to delete the user: ${configData.users[index].username}?`)) {
-                // Remove from in-memory data
                 configData.users.splice(index, 1);
                 renderUsers();
                 showToast(`User marked for deletion. Confirm by entering password.`, 3000);
-
-                // Show password modal to commit the change
                 $('passwordModal').style.display = 'flex';
             }
         }
         
-        /**
-         * Prepares for settings update (by showing password modal).
-         */
         function triggerSettingsUpdate() {
             extractSettingsFromForm();
             $('passwordModal').style.display = 'flex';
         }
-
-
-        // ====================================================================
-        // GITLAB API INTERACTION & PASSWORD PROTECTION
-        // ====================================================================
-
-        /**
-         * Fetches the current Key.json from GitLab.
-         */
+        
         async function loadConfig() {
             $('loading').style.display = 'flex';
             try {
@@ -757,7 +661,6 @@
                 const jsonContent = atob(fileData.content);
                 configData = JSON.parse(jsonContent);
 
-                // Ensure users array and config objects exist
                 if (!Array.isArray(configData.users)) configData.users = [];
                 if (!configData.dialog_config) configData.dialog_config = {};
                 if (!configData.status_config) configData.status_config = {};
@@ -774,12 +677,9 @@
             }
         }
 
-        /**
-         * Handles the password confirmation and triggers the GitLab update.
-         */
         function handlePasswordConfirmation() {
             const inputPassword = $('adminPasswordInput').value;
-            $('adminPasswordInput').value = ''; // Clear input
+            $('adminPasswordInput').value = '';
 
             if (inputPassword === ADMIN_PASSWORD) {
                 $('passwordModal').style.display = 'none';
@@ -789,9 +689,6 @@
             }
         }
 
-        /**
-         * Updates the Key.json file on GitLab via the API.
-         */
         async function saveConfigToGitLab() {
             $('loading').style.display = 'flex';
 
@@ -829,7 +726,7 @@
                 showToast(`Failed to save config: ${error.message}`, 8000);
             } finally {
                 $('loading').style.display = 'none';
-                loadConfig(); // Reload to confirm the change
+                loadConfig();
             }
         }
 
@@ -839,7 +736,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             loadConfig();
-            showTab('users'); // Default view
+            showTab('users');
             $('saveUserBtn').addEventListener('click', handleUserSaveAction);
             $('confirmUpdateBtn').addEventListener('click', handlePasswordConfirmation);
         });
